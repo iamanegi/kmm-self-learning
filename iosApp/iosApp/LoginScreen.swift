@@ -7,8 +7,12 @@
 //
 
 import SwiftUI
+import shared
 
 struct LoginScreen: View {
+    
+    @State private var showingAlert = false
+    @State private var alertTitle = ""
     
     @State var email: String = ""
     @State var password: String = ""
@@ -25,6 +29,7 @@ struct LoginScreen: View {
                 .background(.gray.opacity(0.3))
                 .cornerRadius(8)
                 .disableAutocorrection(true)
+                .autocapitalization(.none)
                 .textContentType(.emailAddress)
                 .keyboardType(.emailAddress)
             
@@ -53,7 +58,7 @@ struct LoginScreen: View {
             
             // login button
             Button {
-                
+                login()
             } label: {
 
                 Text("Login")
@@ -69,7 +74,23 @@ struct LoginScreen: View {
             
         }.padding()
             .navigationTitle("Login")
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text(alertTitle))
+            }
         
+    }
+    
+    private func login() {
+        let auth = Auth()
+        let authResponse = auth.authenticateUser(email: self.email, password: self.password)
+        
+        if (authResponse.isAuthenticated) {
+            alertTitle = authResponse.message
+            showingAlert = true
+        } else {
+            alertTitle = authResponse.message
+            showingAlert = true
+        }
     }
 }
 

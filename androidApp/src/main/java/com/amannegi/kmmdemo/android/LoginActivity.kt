@@ -8,22 +8,32 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.amannegi.kmmdemo.Auth
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginScreen() {
+
+    val scaffoldState = rememberScaffoldState()
+    val coroutineScope = rememberCoroutineScope()
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
 
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
             TopAppBar() {
                 Text(
@@ -83,7 +93,15 @@ fun LoginScreen() {
 
             // login button
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    keyboardController?.hide()
+                    login(email, password) { message ->
+                        coroutineScope.launch {
+                            scaffoldState.snackbarHostState
+                                .showSnackbar(message = message)
+                        }
+                    }
+                },
                 modifier = Modifier.padding(16.dp),
                 shape = RoundedCornerShape(16.dp),
                 elevation = ButtonDefaults.elevation()
@@ -96,6 +114,17 @@ fun LoginScreen() {
             }
 
         }
+    }
+}
+
+private fun login(email: String, password: String, action: (String) -> Unit) {
+    val auth = Auth()
+    val (isAuthenticated, message) = auth.authenticateUser(email, password)
+
+    if (isAuthenticated) {
+        action(message)
+    } else {
+        action(message)
     }
 }
 
