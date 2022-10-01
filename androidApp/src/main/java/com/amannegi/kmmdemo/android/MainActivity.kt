@@ -13,6 +13,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 
 @Composable
 fun MyApplicationTheme(
@@ -58,7 +63,30 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
-                LoginScreen()
+                val navController = rememberNavController()
+                NavHost(navController = navController, startDestination = Screen.LoginScreen.route) {
+
+                    composable(route = Screen.LoginScreen.route) {
+                        LoginScreen(navController = navController)
+                    }
+
+                    composable(
+                        route = Screen.ProductsScreen.route + "/{email}",
+                        arguments = listOf(
+                            navArgument("email") {
+                                type = NavType.StringType
+                                defaultValue = "none@test.com"
+                                nullable = true
+                            }
+                        )
+                    ) { entry ->
+                        ProductsScreen(
+                            navController = navController,
+                            email = entry.arguments?.getString("email")
+                        )
+                    }
+
+                }
             }
         }
     }

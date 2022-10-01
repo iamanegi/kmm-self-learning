@@ -1,8 +1,5 @@
 package com.amannegi.kmmdemo.android
 
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,19 +18,18 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.amannegi.kmmdemo.Auth
-import com.amannegi.kmmdemo.KtorHelper
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
     val keyboardController = LocalSoftwareKeyboardController.current
-    val ctx = LocalContext.current
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -102,7 +98,7 @@ fun LoginScreen() {
             Button(
                 onClick = {
                     keyboardController?.hide()
-                    login(email, password) { message ->
+                    login(email, password, navController) { message ->
                         coroutineScope.launch {
                             scaffoldState.snackbarHostState
                                 .showSnackbar(message = message)
@@ -124,19 +120,14 @@ fun LoginScreen() {
     }
 }
 
-private fun login(email: String, password: String, action: (String) -> Unit) {
+private fun login(email: String, password: String, navController: NavController, action: (String) -> Unit) {
     val auth = Auth()
     val (isAuthenticated, message) = auth.authenticateUser(email, password)
 
     if (isAuthenticated) {
-        action(message)
+        navController.navigate(Screen.ProductsScreen.withArgs(email))
     } else {
         action(message)
-    }
-
-    MainScope().launch {
-        val products = KtorHelper().getProducts()
-        Log.d("LoginScreen", "product: ${products?.products?.get(0)}")
     }
 }
 
@@ -144,6 +135,6 @@ private fun login(email: String, password: String, action: (String) -> Unit) {
 @Composable
 fun DefaultLoginPreview() {
     MyApplicationTheme {
-        LoginScreen()
+        LoginScreen(navController = rememberNavController())
     }
 }
