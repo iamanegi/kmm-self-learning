@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,25 @@ import com.amannegi.kmmdemo.KtorHelper
 import com.amannegi.kmmdemo.Product
 import com.amannegi.kmmdemo.ProductsResponse
 
+val dummyProduct = Product(
+    1,
+    "iPhone 9",
+    "An apple mobile which is nothing like apple",
+    549,
+    12.96,
+    4.69,
+    94,
+    "Apple",
+    "smartphones",
+    "https://dummyjson.com/image/i/products/1/thumbnail.jpg",
+    arrayListOf(
+        "https://dummyjson.com/image/i/products/1/1.jpg",
+        "https://dummyjson.com/image/i/products/1/2.jpg",
+        "https://dummyjson.com/image/i/products/1/3.jpg",
+        "https://dummyjson.com/image/i/products/1/4.jpg",
+        "https://dummyjson.com/image/i/products/1/thumbnail.jpg"
+    )
+)
 
 @Composable
 fun ProductsScreen(navController: NavController, email: String?) {
@@ -87,26 +107,7 @@ fun ProductsScreen(navController: NavController, email: String?) {
                     Box(
                         contentAlignment = Alignment.Center
                     ) {
-                        val product = Product(
-                            1,
-                            "iPhone 9",
-                            "An apple mobile which is nothing like apple",
-                            549,
-                            12.96,
-                            4.69,
-                            94,
-                            "Apple",
-                            "smartphones",
-                            "https://dummyjson.com/image/i/products/1/thumbnail.jpg",
-                            arrayListOf(
-                                "https://dummyjson.com/image/i/products/1/1.jpg",
-                                "https://dummyjson.com/image/i/products/1/2.jpg",
-                                "https://dummyjson.com/image/i/products/1/3.jpg",
-                                "https://dummyjson.com/image/i/products/1/4.jpg",
-                                "https://dummyjson.com/image/i/products/1/thumbnail.jpg"
-                            )
-                        )
-                        ProductView(product = productsResponse?.products?.get(i) ?: product)
+                        ProductView(product = productsResponse?.products?.get(i) ?: dummyProduct)
                     }
                 }
             }
@@ -126,6 +127,7 @@ fun ProductView(product: Product) {
             model = product.thumbnail,
             contentDescription = "Product image",
             contentScale = ContentScale.FillBounds,
+            placeholder = painterResource(id = R.drawable.ic_round_imagesearch_roller_24),
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
@@ -151,6 +153,11 @@ fun ProductView(product: Product) {
                 }
             }
         }
+        RatingBar(
+            modifier = Modifier.fillMaxWidth(0.7f),
+            numberOfStars = 5,
+            rating = (product.rating ?: 0).toFloat(),
+            )
     }
 }
 
