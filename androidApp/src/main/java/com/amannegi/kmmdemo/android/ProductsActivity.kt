@@ -1,6 +1,7 @@
 package com.amannegi.kmmdemo.android
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -67,7 +68,7 @@ fun ProductsScreen(navController: NavController, email: String?) {
         topBar = {
             TopAppBar {
                 Text(
-                    text = "Products Screen",
+                    text = "Products",
                     style = MaterialTheme.typography.h6,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
@@ -105,9 +106,17 @@ fun ProductsScreen(navController: NavController, email: String?) {
 
                 items(productsResponse?.limit ?: 0) { i ->
                     Box(
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier.clickable {
+                            productsResponse?.products?.get(i)?.let { product ->
+                                navController.currentBackStackEntry?.arguments?.putParcelable("product", product)
+                                navController.navigate(Screen.ProductDetailsScreen.route)
+                            }
+                        }
                     ) {
-                        ProductView(product = productsResponse?.products?.get(i) ?: dummyProduct)
+                        productsResponse?.products?.get(i)?.let { product ->
+                            ProductView(product = product)
+                        }
                     }
                 }
             }
@@ -157,7 +166,7 @@ fun ProductView(product: Product) {
             modifier = Modifier.fillMaxWidth(0.7f),
             numberOfStars = 5,
             rating = (product.rating ?: 0).toFloat(),
-            )
+        )
     }
 }
 

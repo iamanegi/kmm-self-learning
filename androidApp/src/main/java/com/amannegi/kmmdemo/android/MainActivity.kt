@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.amannegi.kmmdemo.Product
 
 @Composable
 fun MyApplicationTheme(
@@ -83,6 +84,14 @@ class MainActivity : ComponentActivity() {
                         ProductsScreen(
                             navController = navController,
                             email = entry.arguments?.getString("email")
+                        )
+                    }
+
+                    composable(route = Screen.ProductDetailsScreen.route) {
+                        ProductDetailsScreen(
+                            navController = navController,
+                            product = navController.previousBackStackEntry?.arguments?.getParcelable<Product>("product")
+                                ?: dummyProduct
                         )
                     }
 

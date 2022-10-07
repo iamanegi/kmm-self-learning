@@ -1,5 +1,6 @@
 package com.amannegi.kmmdemo
 
+@Parcelize
 @kotlinx.serialization.Serializable
 data class Product(
     var id: Int? = null,
@@ -13,4 +14,4 @@ data class Product(
     var category: String? = null,
     var thumbnail: String? = null,
     var images: List<String>? = null
-)
+): Parcelable
