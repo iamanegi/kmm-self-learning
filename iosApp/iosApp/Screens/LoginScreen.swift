@@ -18,6 +18,8 @@ struct LoginScreen: View {
     @State var password: String = ""
     @State var showPassword: Bool = true
     
+    @State var isAuthenticated: Bool? = nil
+    
     var body: some View {
         
         VStack(spacing: 8) {
@@ -57,20 +59,26 @@ struct LoginScreen: View {
             }
             
             // login button
-            Button {
-                login()
-            } label: {
+            NavigationLink(
+                destination: ProductsListScreen(email: email),
+                tag: true,
+                selection: $isAuthenticated
+            ) {
+                Button {
+                    login()
+                } label: {
 
-                Text("Login")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(height: 48)
-                    .padding(.horizontal)
+                    Text("Login")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(height: 48)
+                        .padding(.horizontal)
 
-            }.background(Color("accentColor"))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .shadow(color: .gray.opacity(0.7), radius: 5, y: 5)
-                .padding(.vertical)
+                }.background(Color("accentColor"))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .shadow(color: .gray.opacity(0.7), radius: 5, y: 5)
+                    .padding(.vertical)
+            }
             
         }.padding()
             .navigationTitle("Login")
@@ -85,8 +93,7 @@ struct LoginScreen: View {
         let authResponse = auth.authenticateUser(email: self.email, password: self.password)
         
         if (authResponse.isAuthenticated) {
-            alertTitle = authResponse.message
-            showingAlert = true
+            isAuthenticated = true
         } else {
             alertTitle = authResponse.message
             showingAlert = true
