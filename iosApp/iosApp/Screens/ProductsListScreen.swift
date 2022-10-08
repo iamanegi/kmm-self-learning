@@ -122,36 +122,38 @@ struct ProductsListScreen: View {
         let product: Product
 
         var body: some View {
-            VStack(alignment: .leading, spacing: 4) {
-                AsyncImage(url: URL(string: product.thumbnail ?? "")) { image in
-                    image.resizable()
-                        .aspectRatio(1, contentMode: .fit)
-                } placeholder: {
-                    Image("placeholder")
-                        .resizable()
-                        .aspectRatio(1, contentMode: .fit)
-                }
-                Text(product.title ?? "")
-                    .font(.system(.subheadline))
-                HStack (alignment: .center, spacing: 8) {
-                    Text("₹\(product.price ?? 0)")
-                        .font(.system(.body))
-                        .fontWeight(.bold)
-                    
-                    if let discount = product.discountPercentage {
-                        Text("\(discount)% off")
+            NavigationLink(destination: ProductDetailsScreen(product: product)) {
+                VStack(alignment: .leading, spacing: 4) {
+                    AsyncImage(url: URL(string: product.thumbnail ?? "")) { image in
+                        image.resizable()
+                            .aspectRatio(1, contentMode: .fit)
+                    } placeholder: {
+                        Image("placeholder")
+                            .resizable()
+                            .aspectRatio(1, contentMode: .fit)
+                    }
+                    Text(product.title ?? "")
+                        .font(.system(.subheadline))
+                    HStack (alignment: .center, spacing: 8) {
+                        Text("₹\(product.price ?? 0)")
                             .font(.system(.body))
                             .fontWeight(.bold)
-                            .foregroundColor(.green)
+                        
+                        if let discount = product.discountPercentage {
+                            Text("\(discount)% off")
+                                .font(.system(.body))
+                                .fontWeight(.bold)
+                                .foregroundColor(.green)
+                        }
                     }
+                    GeometryReader { metrics in
+                        RatingBar(
+                            rating: Decimal(floatLiteral: Double(truncating: product.rating!))
+                        ).frame(width: metrics.size.width * 0.7)
+                    }.frame(width: .infinity, height: .zero) // to prevent GeometryReader from taking extra space
+                        .padding(.vertical, 8)
+                    Spacer()
                 }
-                GeometryReader { metrics in
-                    RatingBar(
-                        rating: Decimal(floatLiteral: Double(truncating: product.rating!))
-                    ).frame(width: metrics.size.width * 0.7)
-                }.frame(width: .infinity, height: .zero) // to prevent GeometryReader from taking extra space
-                    .padding(.vertical, 8)
-                Spacer()
             }
         }
     }

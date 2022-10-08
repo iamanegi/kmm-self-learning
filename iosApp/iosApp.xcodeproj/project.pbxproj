@@ -12,6 +12,7 @@
 		1E03672828F08B9D0066A2B0 /* ProductsListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E03672728F08B9D0066A2B0 /* ProductsListScreen.swift */; };
 		1E039BCB28F16C72003600C2 /* RatingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E039BCA28F16C72003600C2 /* RatingBar.swift */; };
 		1E039BCD28F189ED003600C2 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E039BCC28F189ED003600C2 /* CircularProgressBar.swift */; };
+		1E039BCF28F1971A003600C2 /* ProductDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E039BCE28F1971A003600C2 /* ProductDetailsScreen.swift */; };
 		1E5CA04A28DF6A1C009646CA /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5CA04928DF6A1C009646CA /* LoginScreen.swift */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
@@ -36,6 +37,7 @@
 		1E03672728F08B9D0066A2B0 /* ProductsListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsListScreen.swift; sourceTree = "<group>"; };
 		1E039BCA28F16C72003600C2 /* RatingBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingBar.swift; sourceTree = "<group>"; };
 		1E039BCC28F189ED003600C2 /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
+		1E039BCE28F1971A003600C2 /* ProductDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsScreen.swift; sourceTree = "<group>"; };
 		1E5CA04928DF6A1C009646CA /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +71,7 @@
 				1E03672728F08B9D0066A2B0 /* ProductsListScreen.swift */,
 				1E039BCA28F16C72003600C2 /* RatingBar.swift */,
 				1E039BCC28F189ED003600C2 /* CircularProgressBar.swift */,
+				1E039BCE28F1971A003600C2 /* ProductDetailsScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				1E5CA04A28DF6A1C009646CA /* LoginScreen.swift in Sources */,
 				1E03672828F08B9D0066A2B0 /* ProductsListScreen.swift in Sources */,
 				1E039BCD28F189ED003600C2 /* CircularProgressBar.swift in Sources */,
+				1E039BCF28F1971A003600C2 /* ProductDetailsScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
