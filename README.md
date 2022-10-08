@@ -11,13 +11,10 @@ This is a kotlin multi-platform mobile practice project.
 ## Screenshots
 
 #### Login Screen
-<img src="screenshots/android-1.png" width="200"/> 
-<img src="screenshots/ios-1.png" width="200"/>
+<img src="screenshots/android-1.png" width="200"/> <img src="screenshots/ios-1.png" width="200"/>
 
 #### Product List Screen
-<img src="screenshots/android-2.png" width="200"/> 
-<img src="screenshots/ios-2.png" width="200"/>
+<img src="screenshots/android-2.png" width="200"/> <img src="screenshots/ios-2.png" width="200"/>
 
 #### Product Details Screen
-<img src="screenshots/android-3.png" width="200"/> 
-<img src="screenshots/ios-3.png" width="200"/>
+<img src="screenshots/android-3.png" width="200"/> <img src="screenshots/ios-3.png" width="200"/>
